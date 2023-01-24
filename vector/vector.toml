@@ -1,0 +1,107 @@
+[sources.vector]
+type = "internal_logs"
+host_key = "vector"
+
+[transforms.vector-transform]
+type = "remap"
+inputs = ["vector"]
+source = """
+.__REALTIME_TIMESTAMP = to_unix_timestamp!(.timestamp)
+.message = encode_json(.)
+"""
+
+[transforms.to_json]
+type = "remap"
+inputs = [ "*-transform" ]
+source = """
+temp_old = .
+temp_parsed = parse_json!(.message)
+parsed_message = parse_json(temp_parsed.MESSAGE) ?? temp_parsed.MESSAGE
+. = {}
+.ic_subnet = temp_old.ic_subnet
+.dc = temp_old.dc
+.ic_node = temp_old.ic_node
+.ic = temp_old.ic
+.SYSLOG_IDENTIFIER = temp_parsed.SYSLOG_IDENTIFIER
+.__CURSOR = temp_parsed.__CURSOR
+if is_string(parsed_message){
+    .message = parsed_message
+    .LEVEL = "INFO"
+} else {
+    .message = parsed_message.log_entry.message
+    .LEVEL = parsed_message.log_entry.level
+    .CRATE_ = parsed_message.log_entry.crate_
+    .MODULE = parsed_message.log_entry.module
+    .LINE = parsed_message.log_entry.line
+}
+.timestamp = to_timestamp!(to_float!(temp_parsed.__REALTIME_TIMESTAMP) * 1000, "nanoseconds")
+if temp_old.host != null {
+    .host = temp_old.host  
+}
+"""
+
+[transforms.filter_out_vector_logs]
+type = "filter"
+inputs = [ "to_json" ]
+condition = ".host == null"
+
+[transforms.drop]
+type = "filter"
+inputs = [ "filter_out_vector_logs" ]
+condition = "to_int(now()) - to_int!(.timestamp) <= 86400"
+
+[transforms.crate_null]
+type = "filter"
+inputs = [ "drop" ]
+condition = ".CRATE_ == null"
+
+[transforms.crate_not_null]
+type = "filter"
+inputs = [ "drop" ]
+condition = ".CRATE_ != null"
+
+
+[sinks.out_logs_crate_not_null]
+type = "loki"
+inputs = ["crate_not_null"]
+# endpoint = "http://ic-logs-loki-distributed-gateway.ic-logs.svc.cluster.local"
+endpoint = "http://localhost:3100"
+remove_label_fields = true
+compression = "none"
+    [sinks.out_logs_crate_not_null.labels]
+    ic_node = "{{ ic_node }}"
+    ic_subnet = "{{ ic_subnet }}"
+    dc = "{{ dc }}"
+    ic = "{{ ic }}"
+    syslog_identifier = "{{ SYSLOG_IDENTIFIER }}"
+    level = "{{ LEVEL }}"
+    crate_ = "{{ CRATE_ }}"
+    module = "{{ MODULE }}"
+    line = "{{ LINE }}"
+    [sinks.out_logs_crate_not_null.encoding]
+    codec = "json"
+
+[sinks.out_logs_crate_null]
+type = "loki"
+inputs = ["crate_null"]
+# endpoint = "http://ic-logs-loki-distributed-gateway.ic-logs.svc.cluster.local"
+endpoint = "http://localhost:3100"
+remove_label_fields = true
+compression = "none"
+    [sinks.out_logs_crate_null.labels]
+    ic_node = "{{ ic_node }}"
+    ic_subnet = "{{ ic_subnet }}"
+    dc = "{{ dc }}"
+    ic = "{{ ic }}"
+    syslog_identifier = "{{ SYSLOG_IDENTIFIER }}"
+    level = "{{ LEVEL }}"
+    [sinks.out_logs_crate_null.encoding]
+    codec = "json"
+
+[sinks.out_logs]
+type = "file"
+inputs = ["filter_out_vector_logs"]
+compression = "none"
+path = "logs/logs.log"
+    [sinks.out_logs.encoding]
+    codec = "json"
