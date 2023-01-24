@@ -34,7 +34,7 @@ def main():
     nodes = response.json()['data']
     logging.info('Retreived the list of nodes. Found {} nodes'.format(len(nodes)))
 
-    ## Ensure that, if there is something we pick it up, this should be set to whatever the 
+    ## Ensure that, if there is something we pick it up, this should be set to maximum between the accepted look-back for loki and the retention period
     prev_year = datetime.date.today() - datetime.timedelta(look_back)
 
     for node in nodes:
