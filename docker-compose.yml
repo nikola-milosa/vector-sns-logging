@@ -1,20 +1,20 @@
 version: '3.9'
 
 services:
-  log-target-generator:
-    image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/log-vector-config-generator:2.0
-    network_mode: host
-    hostname: 127.0.0.1
-    command: ["--targets-dir", "/tmp/discovery_wd", "--generation-dir", "/generated-config", "--nns-url", "http://[2401:3f00:1000:23:6801:11ff:fec4:706d]:8080", "--filter-node-id-regex", "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae", "--batch-size", "100"]
-    container_name: "log-generator"
-    volumes:
-      - ./vector:/generated-config
-      - ./discovery_wd:/tmp/discovery_wd
-    depends_on:
-      - loki
+  # log-target-generator:
+  #   image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/log-vector-config-generator:2.0
+  #   network_mode: host
+  #   hostname: 127.0.0.1
+  #   command: ["--targets-dir", "/tmp/discovery_wd", "--generation-dir", "/generated-config", "--nns-url", "http://[2401:3f00:1000:23:6801:11ff:fec4:706d]:8080", "--filter-node-id-regex", "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae", "--batch-size", "100"]
+  #   container_name: "log-generator"
+  #   volumes:
+  #     - ./vector:/generated-config
+  #     - ./discovery_wd:/tmp/discovery_wd
+  #   depends_on:
+  #     - loki
 
   vector:
-    image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/vector-modified:2.0
+    image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/vector-modified:3.0
     network_mode: host
     hostname: 127.0.0.1
     command: ["--config-dir", "/etc/vector/"]
