@@ -6,6 +6,7 @@ import datetime
 import json
 import logging
 import os
+import time
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s][%(levelname)s]: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
@@ -23,6 +24,15 @@ def main():
     if look_back * 24 > 721:
         logging.error('Invalid look-back. Maximum allowed by loki is 721h')
         exit(1)
+
+    while True:
+        response = requests.get("{}ready".format(loki_url))
+        if response.status_code == 200:
+            break
+        
+        logging.warning("Waiting for loki to be ready... Backing off")
+        time.sleep(0.5)
+
 
     response = requests.get("{}loki/api/v1/label/ic_node/values".format(loki_url))
 
@@ -54,7 +64,7 @@ def main():
 
         cursor = json.loads(result[0]['values'][0][1])['__CURSOR']
         
-        path = os.path.join(output_dir, "{}-source".format(node))
+        path = os.path.join(output_dir, "{}-node_exporter-source".format(node))
         if not os.path.exists(path):
             os.mkdir(path)
         else:
@@ -63,6 +73,9 @@ def main():
         checkpointer = os.path.join(path, "checkpoint.txt")
         with open(checkpointer, "w", encoding="utf-8") as f:
             f.write(cursor)
+
+    logging.info("Finished initializing cursors")
+    exit(0)
 
 
 if __name__ == "__main__":

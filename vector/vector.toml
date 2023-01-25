@@ -98,10 +98,10 @@ compression = "none"
     [sinks.out_logs_crate_null.encoding]
     codec = "json"
 
-[sinks.out_logs]
-type = "file"
-inputs = ["filter_out_vector_logs"]
-compression = "none"
-path = "logs/logs.log"
-    [sinks.out_logs.encoding]
-    codec = "json"
+# [sinks.out_logs]
+# type = "file"
+# inputs = ["filter_out_vector_logs"]
+# compression = "none"
+# path = "logs/logs.log"
+#     [sinks.out_logs.encoding]
+#     codec = "json"

@@ -25,6 +25,22 @@ services:
     volumes:
       - ./vector:/etc/vector
       - ./logs:/logs
+    depends_on:
+      vector-init:
+        condition: service_completed_successfully
+
+  vector-init:
+    image: localhost/vector-init-container
+    container_name: vector-init
+    network_mode: host
+    hostname: 127.0.0.1
+    command: ["http://localhost:3100/", "/vector/logs"]
+    volumes:
+      - ./logs:/vector/logs
+    depends_on:
+      loki:
+        condition: service_healthy
+
 
   loki:
     image: grafana/loki

@@ -1,6 +1,6 @@
 {
   "sources": {
-    "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae-source": {
+    "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae-node_exporter-source": {
       "type": "systemd_journal_gatewayd",
       "endpoint": "2a0f:cd00:2:1:6801:c1ff:fee2:c0f9",
       "data_dir": "logs",
@@ -8,12 +8,12 @@
     }
   },
   "transforms": {
-    "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae-transform": {
+    "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae-node_exporter-transform": {
       "type": "remap",
       "inputs": [
-        "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae-source"
+        "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae-node_exporter-source"
       ],
-      "source": ".ic_node = \"dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae\"\n.ic = \"mercury\"\n.ic_subnet = \"w4asl-4nmyj-qnr7c-6cqq4-tkwmt-o26di-iupkq-vx4kt-asbrx-jzuxh-4ae\"\n.dc = \"ge1\""
+      "source": ".dc = \"ge1\"\n.ic_node = \"dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae\"\n.ic = \"mercury\"\n.ic_subnet = \"w4asl-4nmyj-qnr7c-6cqq4-tkwmt-o26di-iupkq-vx4kt-asbrx-jzuxh-4ae\""
     }
   }
 }
