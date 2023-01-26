@@ -8,6 +8,7 @@ requests = "*"
 cachetools = "*"
 pre-commit = "*"
 pylint = "*"
+numpy = "*"
 
 [dev-packages]
 black = "*"
