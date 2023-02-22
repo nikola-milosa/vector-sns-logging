@@ -1,20 +1,9 @@
 version: '3.9'
 
 services:
-  # log-target-generator:
-  #   image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/log-vector-config-generator:2.0
-  #   network_mode: host
-  #   hostname: 127.0.0.1
-  #   command: ["--targets-dir", "/tmp/discovery_wd", "--generation-dir", "/generated-config", "--nns-url", "http://[2401:3f00:1000:23:6801:11ff:fec4:706d]:8080", "--filter-node-id-regex", "dndht-2fce7-aze7e-coa4j-yvyuw-ut4hw-gn5dj-xvxox-whdhg-txikb-yae", "--batch-size", "100"]
-  #   container_name: "log-generator"
-  #   volumes:
-  #     - ./vector:/generated-config
-  #     - ./discovery_wd:/tmp/discovery_wd
-  #   depends_on:
-  #     - loki
 
   vector:
-    image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/vector-modified:3.0
+    image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/vector-modified:sns
     network_mode: host
     hostname: 127.0.0.1
     command: ["--config-dir", "/etc/vector/"]
@@ -25,30 +14,12 @@ services:
     volumes:
       - ./vector:/etc/vector
       - ./logs:/logs
-    depends_on:
-      vector-init:
-        condition: service_completed_successfully
-
-  vector-init:
-    image: localhost/vector-init-container
-    container_name: vector-init
-    network_mode: host
-    hostname: 127.0.0.1
-    command: ["http://localhost:3100/", "/vector/logs"]
-    volumes:
-      - ./logs:/vector/logs
-    depends_on:
-      loki:
-        condition: service_healthy
-
 
   loki:
     image: grafana/loki
     container_name: "loki"
     ports:
       - 3100:3100
-    volumes:
-      - loki:/loki
     
   grafana:
     image: grafana/grafana
@@ -63,5 +34,12 @@ services:
         source: ./grafana/provisioning
         target: /etc/grafana/provisioning
 
-volumes:
-  loki:
+  elasticsearch:
+    image: elasticsearch:7.4.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - xpack.security.enabled=false
+    ports:
+      - 9200:9200

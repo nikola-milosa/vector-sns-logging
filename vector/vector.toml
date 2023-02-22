@@ -1,107 +1,52 @@
-[sources.vector]
-type = "internal_logs"
-host_key = "vector"
+[sources.logs_from_canister_5s2ji]
+type = "sns_canister"
+endpoint = "https://5s2ji-faaaa-aaaaa-qaaaq-cai.raw.medium09.testnet.dfinity.network"
+data_dir = "logs"
 
-[transforms.vector-transform]
-type = "remap"
-inputs = ["vector"]
-source = """
-.__REALTIME_TIMESTAMP = to_unix_timestamp!(.timestamp)
-.message = encode_json(.)
-"""
+[sources.logs_from_canister_5j7vn]
+type = "sns_canister"
+endpoint = "https://5j7vn-7yaaa-aaaaa-qaaca-cai.raw.medium09.testnet.dfinity.network"
+data_dir = "logs"
 
-[transforms.to_json]
-type = "remap"
-inputs = [ "*-transform" ]
-source = """
-temp_old = .
-temp_parsed = parse_json!(.message)
-parsed_message = parse_json(temp_parsed.MESSAGE) ?? temp_parsed.MESSAGE
-. = {}
-.ic_subnet = temp_old.ic_subnet
-.dc = temp_old.dc
-.ic_node = temp_old.ic_node
-.ic = temp_old.ic
-.SYSLOG_IDENTIFIER = temp_parsed.SYSLOG_IDENTIFIER
-.__CURSOR = temp_parsed.__CURSOR
-if is_string(parsed_message){
-    .message = parsed_message
-    .LEVEL = "INFO"
-} else {
-    .message = parsed_message.log_entry.message
-    .LEVEL = parsed_message.log_entry.level
-    .CRATE_ = parsed_message.log_entry.crate_
-    .MODULE = parsed_message.log_entry.module
-    .LINE = parsed_message.log_entry.line
-}
-.timestamp = to_timestamp!(to_float!(temp_parsed.__REALTIME_TIMESTAMP) * 1000, "nanoseconds")
-if temp_old.host != null {
-    .host = temp_old.host  
-}
-"""
+[sources.logs_from_canister_54yea]
+type = "sns_canister"
+endpoint = "https://54yea-6qaaa-aaaaa-qaabq-cai.raw.medium09.testnet.dfinity.network"
+data_dir = "logs"
 
-[transforms.filter_out_vector_logs]
-type = "filter"
-inputs = [ "to_json" ]
-condition = ".host == null"
+[sources.logs_from_canister_5o6tz]
+type = "sns_canister"
+endpoint = "https://5o6tz-saaaa-aaaaa-qaacq-cai.raw.medium09.testnet.dfinity.network"
+data_dir = "logs"
 
-[transforms.drop]
-type = "filter"
-inputs = [ "filter_out_vector_logs" ]
-condition = "to_int(now()) - to_int!(.timestamp) <= 86400"
+[sources.logs_from_canister_53zcu]
+type = "sns_canister"
+endpoint = "https://53zcu-tiaaa-aaaaa-qaaba-cai.raw.medium09.testnet.dfinity.network"
+data_dir = "logs"
 
-[transforms.crate_null]
-type = "filter"
-inputs = [ "drop" ]
-condition = ".CRATE_ == null"
-
-[transforms.crate_not_null]
-type = "filter"
-inputs = [ "drop" ]
-condition = ".CRATE_ != null"
-
-
-[sinks.out_logs_crate_not_null]
-type = "loki"
-inputs = ["crate_not_null"]
-# endpoint = "http://ic-logs-loki-distributed-gateway.ic-logs.svc.cluster.local"
-endpoint = "http://localhost:3100"
-remove_label_fields = true
+[sinks.out_logs]
+type = "file"
+inputs = ["logs_from_canister*"]
 compression = "none"
-    [sinks.out_logs_crate_not_null.labels]
-    ic_node = "{{ ic_node }}"
-    ic_subnet = "{{ ic_subnet }}"
-    dc = "{{ dc }}"
-    ic = "{{ ic }}"
-    syslog_identifier = "{{ SYSLOG_IDENTIFIER }}"
-    level = "{{ LEVEL }}"
-    crate_ = "{{ CRATE_ }}"
-    module = "{{ MODULE }}"
-    line = "{{ LINE }}"
-    [sinks.out_logs_crate_not_null.encoding]
+path = "logs/logs.log"
+    [sinks.out_logs.encoding]
     codec = "json"
 
-[sinks.out_logs_crate_null]
+[sinks.out_loki]
 type = "loki"
-inputs = ["crate_null"]
-# endpoint = "http://ic-logs-loki-distributed-gateway.ic-logs.svc.cluster.local"
+inputs = ["logs_from_canister*"]
+compression = "none"
 endpoint = "http://localhost:3100"
 remove_label_fields = true
-compression = "none"
-    [sinks.out_logs_crate_null.labels]
-    ic_node = "{{ ic_node }}"
-    ic_subnet = "{{ ic_subnet }}"
-    dc = "{{ dc }}"
-    ic = "{{ ic }}"
-    syslog_identifier = "{{ SYSLOG_IDENTIFIER }}"
-    level = "{{ LEVEL }}"
-    [sinks.out_logs_crate_null.encoding]
+    [sinks.out_loki.labels]
+    file = "{{ file }}"
+    line = "{{ line }}"
+    severity = "{{ severity }}"
+    [sinks.out_loki.encoding]
     codec = "json"
 
-# [sinks.out_logs]
-# type = "file"
-# inputs = ["filter_out_vector_logs"]
-# compression = "none"
-# path = "logs/logs.log"
-#     [sinks.out_logs.encoding]
-#     codec = "json"
+[sinks.out_elastic]
+type = "elasticsearch"
+inputs = ["logs_from_canister*"]
+compression = "none"
+endpoint = "http://localhost:9200"
+mode = "bulk"
