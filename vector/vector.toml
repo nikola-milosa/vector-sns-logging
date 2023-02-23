@@ -44,9 +44,16 @@ remove_label_fields = true
     [sinks.out_loki.encoding]
     codec = "json"
 
+[transforms.elastic_timestamp]
+type = "remap"
+inputs = ["logs_from_canister*"]
+source = """
+.timestamp = to_timestamp!(del(.timestamp), "nanoseconds")
+"""
+
 [sinks.out_elastic]
 type = "elasticsearch"
-inputs = ["logs_from_canister*"]
+inputs = ["elastic_timestamp"]
 compression = "none"
 endpoint = "http://localhost:9200"
-mode = "bulk"
+api_version = "v7"
