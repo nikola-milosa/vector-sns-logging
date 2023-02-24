@@ -12,27 +12,6 @@ type = "filter"
 inputs = ["transform_*"]
 condition = ".place_holder == null"
 
-[sinks.out_logs]
-type = "file"
-inputs = ["total_filter"]
-compression = "none"
-path = "logs/logs.log"
-    [sinks.out_logs.encoding]
-    codec = "json"
-
-[sinks.out_loki]
-type = "loki"
-inputs = ["total_filter"]
-compression = "none"
-endpoint = "http://localhost:3100"
-remove_label_fields = true
-    [sinks.out_loki.labels]
-    file = "{{ file }}"
-    line = "{{ line }}"
-    severity = "{{ severity }}"
-    [sinks.out_loki.encoding]
-    codec = "json"
-
 [transforms.elastic_timestamp]
 type = "remap"
 inputs = ["total_filter"]
@@ -44,5 +23,5 @@ source = """
 type = "elasticsearch"
 inputs = ["elastic_timestamp"]
 compression = "none"
-endpoint = "http://localhost:9200"
+endpoint = "http://elasticsearch.dfinity.systems"
 api_version = "v7"
