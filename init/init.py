@@ -14,9 +14,10 @@ def get_root_sns():
             '(record {})'
         ], stdout=subprocess.PIPE
     )
-    return json.loads(subprocess.check_output(['idl2json'], stdin=dfx.stdout).decode('utf-8').strip().split('\n')[0])['instances'][0]['root_canister_id']
+    return json.loads(subprocess.check_output(['idl2json'], stdin=dfx.stdout).decode('utf-8').strip().split('\n')[0])['instances']
 
 def get_all_canisters(root_canister):
+    print(root_canister)
     dfx = subprocess.Popen(
         [
             'dfx',
@@ -36,7 +37,7 @@ def get_all_canisters(root_canister):
 def generate_source(canister):
     obj = dict()
     obj['type'] = 'sns_canister'
-    obj['endpoint'] = f'https://{canister}.raw.mainnet.dfinity.network'
+    obj['endpoint'] = f'http://{canister}.raw.ic0.app'
     obj['data_dir'] = 'logs'
 
     return obj
@@ -60,7 +61,8 @@ def main():
     config['transforms'] = dict()
     
     for root in root_sns:
-        canisters = dict(get_all_canisters(root))
+        root_key = root['root_canister_id'][0]
+        canisters = dict(get_all_canisters(root_key))
         for key in canisters.keys():
             for canister in canisters[key]:
                 name = f'{key}_{canister}'

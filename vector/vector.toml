@@ -1,20 +1,6 @@
-[sources.source_demo-logs]
-type = "demo_logs"
-format = "json"
-
-[transforms.transform_demo-logs]
-type = "remap"
-inputs = [ "source_demo-logs" ]
-source = ".place_holder = true"
-
-[transforms.total_filter]
-type = "filter"
-inputs = ["transform_*"]
-condition = ".place_holder == null"
-
 [transforms.elastic_timestamp]
 type = "remap"
-inputs = ["total_filter"]
+inputs = ["transform_*"]
 source = """
 .timestamp = to_timestamp!(del(.timestamp), "nanoseconds")
 """
@@ -23,5 +9,8 @@ source = """
 type = "elasticsearch"
 inputs = ["elastic_timestamp"]
 compression = "none"
-endpoint = "http://elasticsearch.dfinity.systems"
+endpoint = "http://localhost:9200"
 api_version = "v7"
+mode = "bulk"
+    [sinks.out_elastic.bulk]
+    index = "sns-canister-logs-%Y-%m-%d"

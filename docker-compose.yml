@@ -3,7 +3,7 @@ version: '3.9'
 services:
 
   vector:
-    image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/vector-modified:sns
+    image: registry.gitlab.com/dfinity-lab/core/release/nikola-milosa/vector-modified:sns-1.2
     network_mode: host
     hostname: 127.0.0.1
     command: ["--config-dir", "/etc/vector/"]
@@ -14,42 +14,23 @@ services:
     volumes:
       - ./vector:/etc/vector
       - ./logs:/logs
-  # dev
-  # loki:
-  #   image: grafana/loki
-  #   container_name: "loki"
-  #   ports:
-  #     - 3100:3100
-    
-  # grafana:
-  #   image: grafana/grafana
-  #   ports:
-  #     - 3000:3000
-  #   container_name: "grafana"
-  #   environment:
-  #     GF_AUTH_ANONYMOUS_ENABLED: true
-  #     GF_AUTH_ANONYMOUS_ORG_ROLE: 'Admin'
-  #   volumes:
-  #     - type: bind
-  #       source: ./grafana/provisioning
-  #       target: /etc/grafana/provisioning
 
-  # elasticsearch:
-  #   image: elasticsearch:7.4.0
-  #   container_name: elasticsearch
-  #   environment:
-  #     - discovery.type=single-node
-  #     - ES_JAVA_OPTS=-Xms1g -Xmx1g
-  #     - xpack.security.enabled=false
-  #   ports:
-  #     - 9200:9200
+  elasticsearch:
+    image: elasticsearch:7.4.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - xpack.security.enabled=false
+    ports:
+      - 9200:9200
   
-  # kibana:
-  #   image: kibana:7.4.0
-  #   container_name: kibana
-  #   ports:
-  #     - 5601:5601
-  #   environment:
-  #     - ELASTICSEARCH_HOST=http://elasticsearch:9200
-  #   depends_on:
-  #     - elasticsearch
+  kibana:
+    image: kibana:7.4.0
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOST=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch

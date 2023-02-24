@@ -1,66 +1,258 @@
 {
     "sources": {
-        "source_governance_53zcu-tiaaa-aaaaa-qaaba-cai": {
-            "type": "sns_canister",
-            "endpoint": "https://53zcu-tiaaa-aaaaa-qaaba-cai.raw.medium09.testnet.dfinity.network",
-            "data_dir": "logs"
-        },
-        "source_index_5o6tz-saaaa-aaaaa-qaacq-cai": {
-            "type": "sns_canister",
-            "endpoint": "https://5o6tz-saaaa-aaaaa-qaacq-cai.raw.medium09.testnet.dfinity.network",
-            "data_dir": "logs"
-        },
-        "source_ledger_54yea-6qaaa-aaaaa-qaabq-cai": {
-            "type": "sns_canister",
-            "endpoint": "https://54yea-6qaaa-aaaaa-qaabq-cai.raw.medium09.testnet.dfinity.network",
-            "data_dir": "logs"
-        },
-        "source_root_5s2ji-faaaa-aaaaa-qaaaq-cai": {
-            "type": "sns_canister",
-            "endpoint": "https://5s2ji-faaaa-aaaaa-qaaaq-cai.raw.medium09.testnet.dfinity.network",
-            "data_dir": "logs"
-        },
-        "source_swap_5j7vn-7yaaa-aaaaa-qaaca-cai": {
-            "type": "sns_canister",
-            "endpoint": "https://5j7vn-7yaaa-aaaaa-qaaca-cai.raw.medium09.testnet.dfinity.network",
-            "data_dir": "logs"
-        }
+      "source_archives_zmbi7-fyaaa-aaaaq-aaahq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://zmbi7-fyaaa-aaaaq-aaahq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_sqbzf-5aaaa-aaaam-aavya-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://sqbzf-5aaaa-aaaam-aavya-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_epeco-piaaa-aaaai-qatka-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://epeco-piaaa-aaaai-qatka-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_governance_zqfso-syaaa-aaaaq-aaafq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://zqfso-syaaa-aaaaq-aaafq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_index_zlaol-iaaaa-aaaaq-aaaha-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://zlaol-iaaaa-aaaaq-aaaha-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_ledger_zfcdd-tqaaa-aaaaq-aaaga-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://zfcdd-tqaaa-aaaaq-aaaga-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_root_zxeu2-7aaaa-aaaaq-aaafa-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://zxeu2-7aaaa-aaaaq-aaafa-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_swap_zcdfx-6iaaa-aaaaq-aaagq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://zcdfx-6iaaa-aaaaq-aaagq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_6hsbt-vqaaa-aaaaf-aaafq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://6hsbt-vqaaa-aaaaf-aaafq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_4glvk-ryaaa-aaaaf-aaaia-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://4glvk-ryaaa-aaaaf-aaaia-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_4bkt6-4aaaa-aaaaf-aaaiq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://4bkt6-4aaaa-aaaaf-aaaiq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_4ijyc-kiaaa-aaaaf-aaaja-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://4ijyc-kiaaa-aaaaf-aaaja-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_3vlw6-fiaaa-aaaaf-aaa3a-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://3vlw6-fiaaa-aaaaf-aaa3a-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_rturd-qaaaa-aaaaf-aabaq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://rturd-qaaaa-aaaaf-aabaq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_gonut-hqaaa-aaaaf-aby7a-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://gonut-hqaaa-aaaaf-aby7a-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_dapps_iywa7-ayaaa-aaaaf-aemga-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://iywa7-ayaaa-aaaaf-aemga-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_governance_2jvtu-yqaaa-aaaaq-aaama-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://2jvtu-yqaaa-aaaaq-aaama-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_index_2awyi-oyaaa-aaaaq-aaanq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://2awyi-oyaaa-aaaaq-aaanq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_ledger_2ouva-viaaa-aaaaq-aaamq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://2ouva-viaaa-aaaaq-aaamq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_root_3e3x2-xyaaa-aaaaq-aaalq-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://3e3x2-xyaaa-aaaaq-aaalq-cai.raw.ic0.app",
+        "data_dir": "logs"
+      },
+      "source_swap_2hx64-daaaa-aaaaq-aaana-cai": {
+        "type": "sns_canister",
+        "endpoint": "https://2hx64-daaaa-aaaaq-aaana-cai.raw.ic0.app",
+        "data_dir": "logs"
+      }
     },
     "transforms": {
-        "transform_governance_53zcu-tiaaa-aaaaa-qaaba-cai": {
-            "type": "remap",
-            "inputs": [
-                "source_governance_53zcu-tiaaa-aaaaa-qaaba-cai"
-            ],
-            "source": ".canister_type=\"governance\""
-        },
-        "transform_index_5o6tz-saaaa-aaaaa-qaacq-cai": {
-            "type": "remap",
-            "inputs": [
-                "source_index_5o6tz-saaaa-aaaaa-qaacq-cai"
-            ],
-            "source": ".canister_type=\"index\""
-        },
-        "transform_ledger_54yea-6qaaa-aaaaa-qaabq-cai": {
-            "type": "remap",
-            "inputs": [
-                "source_ledger_54yea-6qaaa-aaaaa-qaabq-cai"
-            ],
-            "source": ".canister_type=\"ledger\""
-        },
-        "transform_root_5s2ji-faaaa-aaaaa-qaaaq-cai": {
-            "type": "remap",
-            "inputs": [
-                "source_root_5s2ji-faaaa-aaaaa-qaaaq-cai"
-            ],
-            "source": ".canister_type=\"root\""
-        },
-        "transform_swap_5j7vn-7yaaa-aaaaa-qaaca-cai": {
-            "type": "remap",
-            "inputs": [
-                "source_swap_5j7vn-7yaaa-aaaaa-qaaca-cai"
-            ],
-            "source": ".canister_type=\"swap\""
-        }
+      "transform_archives_zmbi7-fyaaa-aaaaq-aaahq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_archives_zmbi7-fyaaa-aaaaq-aaahq-cai"
+        ],
+        "source": ".canister_type=\"archives\""
+      },
+      "transform_dapps_sqbzf-5aaaa-aaaam-aavya-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_sqbzf-5aaaa-aaaam-aavya-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_dapps_epeco-piaaa-aaaai-qatka-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_epeco-piaaa-aaaai-qatka-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_governance_zqfso-syaaa-aaaaq-aaafq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_governance_zqfso-syaaa-aaaaq-aaafq-cai"
+        ],
+        "source": ".canister_type=\"governance\""
+      },
+      "transform_index_zlaol-iaaaa-aaaaq-aaaha-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_index_zlaol-iaaaa-aaaaq-aaaha-cai"
+        ],
+        "source": ".canister_type=\"index\""
+      },
+      "transform_ledger_zfcdd-tqaaa-aaaaq-aaaga-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_ledger_zfcdd-tqaaa-aaaaq-aaaga-cai"
+        ],
+        "source": ".canister_type=\"ledger\""
+      },
+      "transform_root_zxeu2-7aaaa-aaaaq-aaafa-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_root_zxeu2-7aaaa-aaaaq-aaafa-cai"
+        ],
+        "source": ".canister_type=\"root\""
+      },
+      "transform_swap_zcdfx-6iaaa-aaaaq-aaagq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_swap_zcdfx-6iaaa-aaaaq-aaagq-cai"
+        ],
+        "source": ".canister_type=\"swap\""
+      },
+      "transform_dapps_6hsbt-vqaaa-aaaaf-aaafq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_6hsbt-vqaaa-aaaaf-aaafq-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_dapps_4glvk-ryaaa-aaaaf-aaaia-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_4glvk-ryaaa-aaaaf-aaaia-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_dapps_4bkt6-4aaaa-aaaaf-aaaiq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_4bkt6-4aaaa-aaaaf-aaaiq-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_dapps_4ijyc-kiaaa-aaaaf-aaaja-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_4ijyc-kiaaa-aaaaf-aaaja-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_dapps_3vlw6-fiaaa-aaaaf-aaa3a-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_3vlw6-fiaaa-aaaaf-aaa3a-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_dapps_rturd-qaaaa-aaaaf-aabaq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_rturd-qaaaa-aaaaf-aabaq-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_dapps_gonut-hqaaa-aaaaf-aby7a-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_gonut-hqaaa-aaaaf-aby7a-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_dapps_iywa7-ayaaa-aaaaf-aemga-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_dapps_iywa7-ayaaa-aaaaf-aemga-cai"
+        ],
+        "source": ".canister_type=\"dapps\""
+      },
+      "transform_governance_2jvtu-yqaaa-aaaaq-aaama-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_governance_2jvtu-yqaaa-aaaaq-aaama-cai"
+        ],
+        "source": ".canister_type=\"governance\""
+      },
+      "transform_index_2awyi-oyaaa-aaaaq-aaanq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_index_2awyi-oyaaa-aaaaq-aaanq-cai"
+        ],
+        "source": ".canister_type=\"index\""
+      },
+      "transform_ledger_2ouva-viaaa-aaaaq-aaamq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_ledger_2ouva-viaaa-aaaaq-aaamq-cai"
+        ],
+        "source": ".canister_type=\"ledger\""
+      },
+      "transform_root_3e3x2-xyaaa-aaaaq-aaalq-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_root_3e3x2-xyaaa-aaaaq-aaalq-cai"
+        ],
+        "source": ".canister_type=\"root\""
+      },
+      "transform_swap_2hx64-daaaa-aaaaq-aaana-cai": {
+        "type": "remap",
+        "inputs": [
+          "source_swap_2hx64-daaaa-aaaaq-aaana-cai"
+        ],
+        "source": ".canister_type=\"swap\""
+      }
     }
-}
+  }
