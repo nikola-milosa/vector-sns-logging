@@ -1,0 +1,66 @@
+{
+    "sources": {
+        "source_governance_53zcu-tiaaa-aaaaa-qaaba-cai": {
+            "type": "sns_canister",
+            "endpoint": "https://53zcu-tiaaa-aaaaa-qaaba-cai.raw.medium09.testnet.dfinity.network",
+            "data_dir": "logs"
+        },
+        "source_index_5o6tz-saaaa-aaaaa-qaacq-cai": {
+            "type": "sns_canister",
+            "endpoint": "https://5o6tz-saaaa-aaaaa-qaacq-cai.raw.medium09.testnet.dfinity.network",
+            "data_dir": "logs"
+        },
+        "source_ledger_54yea-6qaaa-aaaaa-qaabq-cai": {
+            "type": "sns_canister",
+            "endpoint": "https://54yea-6qaaa-aaaaa-qaabq-cai.raw.medium09.testnet.dfinity.network",
+            "data_dir": "logs"
+        },
+        "source_root_5s2ji-faaaa-aaaaa-qaaaq-cai": {
+            "type": "sns_canister",
+            "endpoint": "https://5s2ji-faaaa-aaaaa-qaaaq-cai.raw.medium09.testnet.dfinity.network",
+            "data_dir": "logs"
+        },
+        "source_swap_5j7vn-7yaaa-aaaaa-qaaca-cai": {
+            "type": "sns_canister",
+            "endpoint": "https://5j7vn-7yaaa-aaaaa-qaaca-cai.raw.medium09.testnet.dfinity.network",
+            "data_dir": "logs"
+        }
+    },
+    "transforms": {
+        "transform_governance_53zcu-tiaaa-aaaaa-qaaba-cai": {
+            "type": "remap",
+            "inputs": [
+                "source_governance_53zcu-tiaaa-aaaaa-qaaba-cai"
+            ],
+            "source": ".canister_type=\"governance\""
+        },
+        "transform_index_5o6tz-saaaa-aaaaa-qaacq-cai": {
+            "type": "remap",
+            "inputs": [
+                "source_index_5o6tz-saaaa-aaaaa-qaacq-cai"
+            ],
+            "source": ".canister_type=\"index\""
+        },
+        "transform_ledger_54yea-6qaaa-aaaaa-qaabq-cai": {
+            "type": "remap",
+            "inputs": [
+                "source_ledger_54yea-6qaaa-aaaaa-qaabq-cai"
+            ],
+            "source": ".canister_type=\"ledger\""
+        },
+        "transform_root_5s2ji-faaaa-aaaaa-qaaaq-cai": {
+            "type": "remap",
+            "inputs": [
+                "source_root_5s2ji-faaaa-aaaaa-qaaaq-cai"
+            ],
+            "source": ".canister_type=\"root\""
+        },
+        "transform_swap_5j7vn-7yaaa-aaaaa-qaaca-cai": {
+            "type": "remap",
+            "inputs": [
+                "source_swap_5j7vn-7yaaa-aaaaa-qaaca-cai"
+            ],
+            "source": ".canister_type=\"swap\""
+        }
+    }
+}

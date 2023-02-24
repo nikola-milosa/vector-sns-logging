@@ -9,6 +9,7 @@ cachetools = "*"
 pre-commit = "*"
 pylint = "*"
 numpy = "*"
+toml = "*"
 
 [dev-packages]
 black = "*"

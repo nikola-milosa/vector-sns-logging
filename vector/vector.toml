@@ -1,31 +1,20 @@
-[sources.logs_from_canister_5s2ji]
-type = "sns_canister"
-endpoint = "https://5s2ji-faaaa-aaaaa-qaaaq-cai.raw.medium09.testnet.dfinity.network"
-data_dir = "logs"
+[sources.source_demo-logs]
+type = "demo_logs"
+format = "json"
 
-[sources.logs_from_canister_5j7vn]
-type = "sns_canister"
-endpoint = "https://5j7vn-7yaaa-aaaaa-qaaca-cai.raw.medium09.testnet.dfinity.network"
-data_dir = "logs"
+[transforms.transform_demo-logs]
+type = "remap"
+inputs = [ "source_demo-logs" ]
+source = ".place_holder = true"
 
-[sources.logs_from_canister_54yea]
-type = "sns_canister"
-endpoint = "https://54yea-6qaaa-aaaaa-qaabq-cai.raw.medium09.testnet.dfinity.network"
-data_dir = "logs"
-
-[sources.logs_from_canister_5o6tz]
-type = "sns_canister"
-endpoint = "https://5o6tz-saaaa-aaaaa-qaacq-cai.raw.medium09.testnet.dfinity.network"
-data_dir = "logs"
-
-[sources.logs_from_canister_53zcu]
-type = "sns_canister"
-endpoint = "https://53zcu-tiaaa-aaaaa-qaaba-cai.raw.medium09.testnet.dfinity.network"
-data_dir = "logs"
+[transforms.total_filter]
+type = "filter"
+inputs = ["transform_*"]
+condition = ".place_holder == null"
 
 [sinks.out_logs]
 type = "file"
-inputs = ["logs_from_canister*"]
+inputs = ["total_filter"]
 compression = "none"
 path = "logs/logs.log"
     [sinks.out_logs.encoding]
@@ -33,7 +22,7 @@ path = "logs/logs.log"
 
 [sinks.out_loki]
 type = "loki"
-inputs = ["logs_from_canister*"]
+inputs = ["total_filter"]
 compression = "none"
 endpoint = "http://localhost:3100"
 remove_label_fields = true
@@ -46,7 +35,7 @@ remove_label_fields = true
 
 [transforms.elastic_timestamp]
 type = "remap"
-inputs = ["logs_from_canister*"]
+inputs = ["total_filter"]
 source = """
 .timestamp = to_timestamp!(del(.timestamp), "nanoseconds")
 """
